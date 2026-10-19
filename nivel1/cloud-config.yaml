@@ -1,0 +1,21 @@
+#cloud-config
+package_update: true
+
+packages:
+  - nginx
+
+write_files:
+  - path: /var/www/html/index.html
+    content: |
+      <!DOCTYPE html>
+      <html>
+      <head>
+          <title>Servidor Web Estatico</title>
+      </head>
+      <body>
+          <h1>Bem-vindo ao Servidor Automatizado com Cloud-init!</h1>
+      </body>
+      </html>
+
+runcmd:
+  - systemctl restart nginx

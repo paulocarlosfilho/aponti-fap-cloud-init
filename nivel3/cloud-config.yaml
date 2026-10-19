@@ -1,0 +1,26 @@
+#cloud-config
+package_update: true
+
+packages:
+  - docker.io
+  - git
+
+users:
+  - default
+  - name: aluno
+    groups: sudo, docker
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+
+write_files:
+  - path: /home/aluno/bem-vindo.txt
+    content: |
+      Instrucoes do Laboratorio:
+      1. Seja bem-vindo ao ambiente de Observabilidade.
+      2. O Docker e o Git estao prontos para uso.
+      3. O painel do Grafana esta rodando na porta 3000.
+
+runcmd:
+  - systemctl enable --now docker
+  - chown -R aluno:aluno /home/aluno
+  - docker run -d -p 3000:3000 grafana/grafana:latest

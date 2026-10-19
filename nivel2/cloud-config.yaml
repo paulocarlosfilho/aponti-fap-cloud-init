@@ -1,0 +1,7 @@
+#cloud-config
+packages:
+  - docker.io
+
+runcmd:
+  - systemctl enable --now docker
+  - docker run -d -p 8080:80 nginxdemos/hello
